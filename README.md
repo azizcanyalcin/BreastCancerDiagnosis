@@ -1,96 +1,148 @@
-# Breast Cancer Wisconsin Diagnostic Analysis
-## COME 403 Project Report
-By Mert Topkaya and Azizcan Yalçın 
+# COME 403 Project Report
+
+**Authors:**  
+- Mert Topkaya 
+- Azizcan Yalçın
+
+**Project:** Comparison of Machine Learning Models on the Breast Cancer Wisconsin (Diagnostic) Dataset
+
+**Dataset Source:** [Breast Cancer Wisconsin (Diagnostic) Data Set](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
+
+---
 
 ## Overview
-This project implements and compares various machine learning algorithms for breast cancer diagnosis using the Wisconsin Breast Cancer Diagnostic dataset. The goal is to accurately classify breast masses as either benign (0) or malignant (1) using features extracted from digitized images of fine needle aspirates (FNA).
 
-## Dataset
-Source: [UCI Machine Learning Repository - Breast Cancer Wisconsin Diagnostic Dataset](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
+This project demonstrates the analysis and classification of the Breast Cancer Wisconsin (Diagnostic) dataset using multiple machine learning algorithms. The goal is to evaluate and compare the performance of different models on the task of predicting whether a tumor is malignant or benign.
 
-### Features
-The dataset includes 30 features computed from cell nuclei images:
-- Radius (mean, SE, worst)
-- Texture (mean, SE, worst)
-- Perimeter (mean, SE, worst)
-- Area (mean, SE, worst)
-- Smoothness (mean, SE, worst)
-- Compactness (mean, SE, worst)
-- Concavity (mean, SE, worst)
-- Concave points (mean, SE, worst)
-- Symmetry (mean, SE, worst)
-- Fractal dimension (mean, SE, worst)
+The following models have been implemented and compared:
+- **K-Nearest Neighbors (KNN):** Tested with K=3, K=7, and K=11.
+- **Multi-Layer Perceptron (MLP):** Tested with 1, 2, and 3 hidden layers (each with 32 neurons).
+- **Naive Bayes:** Implemented using the GaussianNB classifier.
 
-## Models Implemented
-1. K-Nearest Neighbors (KNN)
-   - K=3
-   - K=7
-   - K=11
+For each model, key performance metrics such as Accuracy, Precision, Recall, and F1-Score are calculated. Additionally, the project includes visualizations that rank the models based on these metrics.
 
-2. Multi-Layer Perceptron (MLP)
-   - Single hidden layer (32 neurons)
-   - Two hidden layers (32, 32 neurons)
-   - Three hidden layers (32, 32, 32 neurons)
+---
 
-3. Naive Bayes
-   - Gaussian Naive Bayes implementation
+## Technologies & Libraries
 
-## Model Performance Comparison
-### Accuracy Rankings
-1. Neural Network (3 hidden layers): 96.79%
-2. KNN (K=11): 96.00%
-3. Neural Network (1 hidden layer): 95.61%
-4. Neural Network (2 hidden layers): 94.74%
-5. KNN (K=3) & KNN (K=7): 94.00%
-6. Naive Bayes: 92.00%
+- **Python 3.x**
+- **NumPy** – Numerical computations.
+- **Pandas** – Data manipulation and analysis.
+- **Matplotlib & Seaborn** – Data visualization.
+- **Scikit-learn** – Machine learning algorithms and evaluation metrics.
 
-## Implementation Details
-### Data Preprocessing
-- Standard scaling applied to features
-- Train-test splits:
-  - KNN: 70-30 split
-  - MLP: 80-20 split
-  - Naive Bayes: 75-25 split
+---
 
-### MLP Configuration
-- Optimizer: Adam
-- Maximum iterations: 5000
-- Activation: ReLU
-- Batch size: 64
-- Learning rate: 0.001
-- Alpha: 0.01
+## Project Structure
 
-## Technologies Used
-- Python
-- Libraries:
-  - scikit-learn
-  - pandas
-  - numpy
-  - matplotlib
-  - seaborn
+```
+├── README.md                  # This file
+├── wdbc.data                  # Dataset file (download from UCI repository)
+└── project_script.py          # Main Python script containing the code below
+```
 
-## Results Visualization
-The project includes visualizations for:
-- Model rankings by accuracy
-- Model rankings by precision
-- Model rankings by recall
-- Model rankings by F1-score
+---
 
-## Usage
-1. Ensure all required libraries are installed:
+## Installation & Requirements
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   ```
+
+2. **Install the required packages:**
+
+   It is recommended to use a virtual environment. For example, using `pip`:
+
+   ```bash
+   pip install numpy pandas matplotlib seaborn scikit-learn
+   ```
+
+3. **Download the Dataset:**
+
+   Download `wdbc.data` from the [UCI repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic) and place it in the project root directory.
+
+---
+
+## Code Overview
+
+The project code is structured as follows:
+
+1. **Data Loading and Preprocessing:**
+   - The dataset is loaded using Pandas.
+   - Columns are labeled with meaningful names.
+   - The diagnosis column is encoded from categorical values (M = Malignant, B = Benign) to numeric values (1 for malignant, 0 for benign).
+   - The data is split into training and testing sets, ensuring class stratification.
+   - Features are standardized using `StandardScaler`.
+
+2. **K-Nearest Neighbors (KNN) Classifier:**
+   - KNN classifiers are implemented with `n_neighbors=3`, `n_neighbors=7`, and `n_neighbors=11` using the Euclidean distance metric.
+   - For each KNN model, confusion matrices and accuracy scores are calculated.
+
+3. **Multi-Layer Perceptron (MLP) Classifier:**
+   - Three MLP configurations are tested:
+     - One hidden layer (32 neurons).
+     - Two hidden layers (32 neurons each).
+     - Three hidden layers (32 neurons each).
+   - Classification reports (precision, recall, f1-score) are generated for each configuration.
+
+4. **Naive Bayes Classifier:**
+   - A Gaussian Naive Bayes classifier is implemented.
+   - The model is trained on the standardized data and evaluated using confusion matrices and classification reports.
+
+5. **Model Performance Comparison:**
+   - A summary table of performance metrics for each model is created.
+   - Models are ranked by Accuracy, Precision, Recall, and F1-Score.
+   - Seaborn is used to visualize the rankings through bar plots.
+
+---
+
+## Running the Code
+
+To run the project, simply execute the main script:
+
 ```bash
-pip install scikit-learn pandas numpy matplotlib seaborn
+python project_script.py
 ```
 
-2. Load the dataset and run the analysis:
-```python
-import pandas as pd
-df_bcancer = pd.read_csv("wdbc.data", header=None)
-```
+This will perform the following:
+- Load and preprocess the dataset.
+- Train and evaluate the KNN, MLP, and Naive Bayes classifiers.
+- Print out performance metrics.
+- Generate visualizations comparing model performances.
 
-3. Follow the Jupyter notebook for complete analysis pipeline.
+---
 
-## Conclusions
-- The Neural Network with three hidden layers achieved the best overall performance
-- KNN with K=11 showed strong performance, suggesting that a larger neighborhood provides better classification for this dataset
-- All models achieved accuracy above 90%, demonstrating the effectiveness of machine learning for breast cancer diagnosis
+## Results & Analysis
+
+The code outputs:
+- Accuracy scores for KNN models (with different K values).
+- Detailed classification reports for each MLP configuration.
+- Performance metrics (Accuracy, Precision, Recall, F1-Score) for all models.
+- Visual bar plots ranking models based on each metric.
+
+These outputs help in understanding which model performs best on the given dataset and under which configurations.
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to fork the repository and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For any questions or feedback, please contact:
+- **Mert Topkaya**  
+- **Azizcan Yalçın**
+
+Or open an issue in this repository.
